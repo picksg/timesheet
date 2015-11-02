@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TSReactWeekView-Emp2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="//fb.me/react-0.13.2.js"></script>
+    <script src="//fb.me/JSXTransformer-0.13.2.js"></script>
+
+    <!-- https://select2.github.io/ -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="bccStructure.css">
+    <script src="./Datafile.js" type="text/javascript"></script>
+    <script src="lib/timesheet.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content"></div>
+<div id="footer">
+</div>
+
+    <script type="text/jsx" >
+        /** @jsx React.DOM **/
+        var WeeklyEmpTable = React.createClass({
+            render: function() {
+                var tabs =  [
+                    {   key: 1,
+                        name: 'Time entry',
+                        active: true,
+                        href:"./TSReactDayView.html"
+                    },
+                    {   key: 2,
+                        name: 'Approvals',
+                        active: false,
+                        href:"./TSReactWeekView-Approver.html"
+                    }
+                ];
+                return (
+                        <div>
+                            <Header tabs={tabs} />
+                            <DateNavigation period={"Week"}/>
+                            <DayViewTableFunctions />
+                            <WeeklyTable times={this.props.timesheet} />
+
+                        </div>
+                );
+            }
+        });
+
+        React.render(
+                <WeeklyEmpTable timesheet={TIMES2} />,
+                document.getElementById('content')
+        );
+    </script>
+
+
+</body>
+</html>

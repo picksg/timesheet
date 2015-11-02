@@ -1,0 +1,118 @@
+
+table thead th{
+    background-color: #F1F1F1;
+}
+
+button, .btn-primary {
+    background-color: #339933;
+}
+
+button, .btn-primary {
+    background-color: #4CAF50;
+}
+
+button, .btn-primary:hover {
+    background-color:  #267326;
+}
+
+
+.dateNavigation .btn-default{
+    background-color: #F5F5F5;
+    color: #525253;
+}
+
+button, .btn-default {
+    background-color: #2196F3;
+    color: #ffffff;
+}
+
+.rowtotals {
+    color: #000000;
+}
+
+
+.today {
+    color: black;
+}
+
+.navbar-default .navbar-nav>li>a.timesheetslogostyle {
+    margin-left: -25px;
+    padding-bottom: -10px;
+    font-size: 24px;
+    color: black;
+}
+
+.navbar-default .navbar-nav>li>a.bccLogo {
+    color: red;
+    font-weight: bold;
+}
+
+
+.navbar-inverse {
+    background-color: #2d2d2d;
+}
+
+
+.project {
+    color: purple;
+}
+
+.timeractive {
+    font-weight: bold;
+}
+
+.day {
+    border-left: solid 1px lightgray;
+}
+
+.noselection {
+    background-color: lightgoldenrodyellow;
+}
+
+.lastday {
+    border-right: solid 1px lightgray;
+}
+
+.today {
+    background-color: lightgoldenrodyellow !important;
+    color: black;
+}
+
+.comment {
+    background-color: yellow;
+    font-style: italic;
+}
+
+/* BCC Colours for demo*/
+table thead th, .totals{
+    background-color: #F1F1F1;
+    font-weight: normal;
+    color: black;
+}
+
+button, .btn-primary {
+    background-color: #4caf50;
+}
+
+.iconProduct {
+    color: #2196F3;
+    font-style: italic;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: transparent;
+}
+
+table select, table select.form-control {
+    -webkit-box-shadow: inset 0 -1px 0 #fff;
+    box-shadow: inset 0 -1px 0 #fff;
+}
+
+table select:hover, table select.form-control:hover {
+    -webkit-box-shadow: inset 0 -1px 0 #bbb;
+    box-shadow: inset 0 -1px 0 #bbb;
+}

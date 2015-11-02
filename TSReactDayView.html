@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TSReactDayView</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="//fb.me/react-0.13.2.js"></script>
+    <script src="//fb.me/JSXTransformer-0.13.2.js"></script>
+
+    <!-- https://select2.github.io/ -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+    <!--<link rel="stylesheet" href="bccStyle.css">-->
+    <link rel="stylesheet" href="bccStructure.css">
+    <script src="./Datafile.js" type="text/javascript"></script>
+    <script src="lib/timesheet.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+    <div id="content"></div>
+
+    <script type="text/jsx" >
+        /** @jsx React.DOM **/
+
+        var DayViewTable = React.createClass({
+            render: function() {
+                var tabs =  [
+                    {   key: 1,
+                        name: 'Time entry',
+                        active: true,
+                        href:"./TSReactDayView.html"
+                    },
+                    {   key: 2,
+                        name: 'Approvals',
+                        active: false,
+                        href:"./TSReactWeekView-Approver.html"
+                    }
+                ];
+                return (
+                        <div>
+                            <Header tabs={tabs}/>
+                            <EmployeeSelectionRow delegation={this.props.delegation}/>
+                            <DateNavigation  period={"Day"}/>
+                            <ProductTable times={this.props.products} />
+                        </div>
+                );
+            }
+        });
+
+         var ProductTable = React.createClass({
+             getInitialState: function() {
+                 return {
+                     rows: [],
+                     colTotal: 0.00,
+                     key: 99
+                 };
+             },
+             componentWillMount: function() {
+                 var rows = this.state.rows;
+                 var colTotal = 0;
+                     this.props.times.forEach(function (times) {
+                         rows.push(<TimeRow times={times} key={times.key}/>);
+                         colTotal += parseFloat(times.days[0].hours);
+                     });
+                 this.setState({
+                     rows: rows,
+                     colTotal: colTotal
+                 });
+             },
+             componentDidMount: function(nextProps) {
+               /*  $(".js-select2").select2();*/
+             },
+             handleAddRow: function(event) {
+                 /*Insert new row with product */
+                 var checked = [];
+                 var sel = event.target;
+                 for (var i = 0; i < sel.length; i++) {
+                     var option = sel.options[i];
+                     if (option.selected) {
+                         checked.push(option.value);
+                     }
+                 }
+
+                 var timerow =     {key: this.state.key,
+                     pin: false,
+                     client: '',
+                     job: false,
+                     job_project: checked,
+                     description: "",
+                     costType: '',
+                     ctdescription: '',
+                     billable: false,
+                     estimate: false,
+                     actualsEstimate: 35,
+                     days: [
+                         {hours: '', note: ''},
+                         {hours: '', note: ''},
+                         {hours: '', note: ''},
+                         {hours: '', note: ''},
+                         {hours: '', note: ''},
+                         {hours: '', note: ''},
+                         {hours: '', note: ''}
+                     ],
+                     total: "0.00"
+                 };
+
+                 var tmprows = this.state.rows;
+                 tmprows.unshift(<TimeRow times={timerow} key={this.state.key}/>);
+                 this.setState({
+                     rows: tmprows,
+                     key: this.state.key + 1
+                 });
+             },
+            render: function() {
+
+                return (
+                        <div>
+                            <DayViewTableFunctions onAdd={this.handleAddRow}/>
+                 <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md-12">
+                        <table className="table table-hover dayView">
+                            <thead>
+                                <tr>
+
+                                    <th >Pin</th>
+                                    <th>Job / Project</th>
+                                    <th></th>
+                                    <th>Cost type</th>
+                                    <th>Billable</th>
+                                    <th><span className="glyphicon glyphicon-time"></span></th>
+                                    <th>Hours</th>
+                                    <th>Notes</th>
+                                    <th>Est</th>
+                                    <th></th>
+                                    <th><input type="checkbox" /></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.rows}
+                            </tbody>
+                            <tr className="totals">
+                                <td></td>
+                                <td colSpan="3">Totals&nbsp;&nbsp; <span className="dailyMinimum"> (Daily minimum  hours is 7.50)</span></td>
+                                <td></td>
+                                <td></td>
+                                <td>{this.state.colTotal.toFixed(2)}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+                );
+            }
+        });
+
+
+var TimeRow = React.createClass({
+            render: function() {
+                var billable = '';
+                var iconProduct = '';
+                if (this.props.times.job){
+                    if (this.props.times.billable) {
+                        billable = <input type="checkbox" defaultChecked="checked"/>;
+                    }else {
+                        billable = <input type="checkbox"/>;
+                    }
+                }else {
+                    billable = '';
+                    iconProduct = <span className="iconProduct" title="Project">P</span>;
+                }
+                return (
+                        <tr>
+                            <td><Pinned pin={this.props.times.pin}/></td>
+                            <td>{this.props.times.job_project} - {this.props.times.description}{iconProduct}</td>
+                            <td></td>
+                            <td><CostTypes  option={this.props.times.costType}/></td>
+                            <td>
+                                {billable}
+                            </td>
+                            <td>
+                                <span className="glyphicon glyphicon-time"></span>
+                            </td>
+                            <td>{this.props.times.days[0].hours}</td>
+                            <td>{this.props.times.days[0].note}</td>
+                            <td>{this.props.times.estimate}</td>
+                            <td className="visual">
+                                <div className="progress">
+                                    <div className="progress-bar progress-bar-success est">
+                                        <span className="sr-only">35% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="checkbox" />
+                            </td>
+
+                        </tr>
+                );
+            }
+        });
+
+        React.render(
+                <DayViewTable products={TIMES2} role={"Employee"} delegation={false} />,
+                document.getElementById('content')
+        );
+    </script>
+
+
+</body>
+</html>

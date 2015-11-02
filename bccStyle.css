@@ -1,0 +1,100 @@
+/*----------------------------------------------------------*/
+/* Demo Blue */
+
+body, .dateNavigation td, .tableFunctions td, .notes td {
+    background-color: #F5F7F8;
+}
+
+.table>tbody+tbody {
+    border-top: none
+}
+
+td {
+    background-color: #ffffff;
+    color: #404040;
+}
+
+tbody tr.totals td {
+    line-height: 1;
+}
+
+.table>thead>tr>th {
+    line-height: 1;
+
+}
+
+/*Set header background colours*/
+.navbar-default {
+    background-color: #1976D2;
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+/*Active tab colour*/
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #b90000;
+    font-size: 120%;
+    background-color: #F5F7F8;
+}
+
+table thead th{
+    background-color: #1976D2 ;
+    color: white;
+    font-weight: normal;
+}
+
+.dateNavigation .btn-default{
+    background-color: #Ffffff;
+    color: #111111;
+}
+
+button, .btn-primary {
+    background-color: #1976D2;
+}
+
+button, .btn-default {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.totals td, .totals th {
+    background-color: #1976D2 ;
+    color: white;
+}
+
+.rowtotals {
+    color: #000000;
+}
+
+.dailyMinimum, .error, .missingTime{
+    color: #FFEB3B;
+}
+
+.timesheetslogostyle {
+    margin-left: -25px;
+    padding-bottom: -10px;
+    font-size: 24px;
+    color: white;
+}
+
+th input[type="checkbox"]:after {
+    border-color: #ffffff;
+}
+
+.today {
+    background-color: lightgoldenrodyellow !important;
+}
+/*Material design colours.*/
+.dark-primary-color    { background: #1976D2; }
+.default-primary-color { background: #2196F3; }
+.light-primary-color   { background: #BBDEFB; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #4CAF50; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #727272; }
+.divider-color         { border-color: #B6B6B6; }
+
+
